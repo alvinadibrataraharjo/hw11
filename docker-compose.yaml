@@ -1,0 +1,28 @@
+version: '3'
+services:
+  nodejs-app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: todo
+      POSTGRES_HOST: postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "3001:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.admin
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin_data:/root/.pgadmin
+volumes:
+  pgadmin_data:
